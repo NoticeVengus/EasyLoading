@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyLoading</title>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/easy-loading.js"></script>
+
+    <link rel="stylesheet" href="css/easy-loading.css">
+
+    <style>
+        body{
+            background-color: deepskyblue;
+        }
+    </style>
+
+</head>
+<body>
+
+    <button id="timeout_btn">without timeout</button>
+
+    <ul id="list">
+    </ul>
+
+    <script>
+
+        var isTimeout = false;
+
+        var styleList = [
+            "BALL_PULSE",
+            "BALL_CLIP_ROTATE", "BALL_CLIP_ROTATE_PULSE", "SQUARE_SPIN", "BALL_CLIP_ROTATE_MULTIPLE",
+            "BALL_PULSE_RISE", "BALL_ROTATE", "CUBE_TRANSITION", "BALL_ZIP_ZAG", "BALL_ZIP_ZAG_DEFLECT",
+            "BALL_TRIANGLE_PATH", "BALL_SCALE", "LINE_SCALE", "LINE_SCALE_PARTY", "BALL_SCALE_MULTIPLE",
+            "BALL_PULSE_SYNC", "BALL_BEAT", "LINE_SCALE_PULSE_OUT", "LINE_SCALE_PULSE_OUT_RAPID",
+            "BALL_SCALE_RIPPLE", "BALL_SCALE_RIPPLE_MULTIPLE", "BALL_SPIN_FADE_LOADER", "LINK_SPIN_FADE_LOADER",
+            "TRIANGLE_SKEW_SPIN", "PACMAN", "SEMI_CIRCLE_SPIN"
+        ];
+
+        $(document).ready(function(){
+            $("#timeout_btn").click(function(){
+                $(this).text(!isTimeout?"with 5 second timeout":"without timeout");
+                isTimeout = !isTimeout;
+            });
+
+            var list = $("#list");
+            $(styleList).each(function(index, element){
+                var button = $("<button>"+element+"</button>")
+                    .click(function(){
+                        EasyLoading.show({
+                            type: EasyLoading.TYPE[element],
+                            button: 'dismiss',
+                            text: 'loading',
+                            timeout: isTimeout?3000:null,
+                            callback: function(event, data){
+                                $("body").append($("<div>"+event+"</div>"));
+                            }
+                        })
+                    });
+                var li = $("<li></li>");
+                list.append(li.append(button));
+            });
+        });
+    </script>
+
+</body>
+</html>
