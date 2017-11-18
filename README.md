@@ -17,7 +17,7 @@ CSS animation files are referenced from [http://www.lanrenzhijia.com](http://www
 | [jQuery](http://jquery.com/)   | 1.6  | DOM operation framework of JavaScript | 
 
 ## Usages  
-[Click here]() to preview the EasyLoading in html.  
+[Click here](https://yeye0922.github.io/EasyLoading) to preview the EasyLoading in html.  
 Import EasyLoading JavaScript and CSS files. EasyLoading contains optional animation, 
 you can import the separated CSS file according to your actual needs or just import a  "easy-loading-animation.css" file 
 which has import all separated CSS files already .
@@ -41,9 +41,7 @@ Showing the loading animation with some parameters.
 Dismiss button can be used to close the view of animation, or your can finish it manually.  
 
     EasyLoading.hide();
-    
-
-![Image text](https://github.com/yeye0922/ZoomMarker/raw/master/screenshot/sc_1.png)  
+     
 ## Parameters  
 EasyLoading.show(params) receives the following parameters.  
 
