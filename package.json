@@ -1,0 +1,9 @@
+{
+  "name": "easy_loading",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-uglify": "^2.2.0"
+  }
+}

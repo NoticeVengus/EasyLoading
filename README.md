@@ -18,18 +18,15 @@ CSS animation files are referenced from [http://www.lanrenzhijia.com](http://www
 
 ## Usages  
 [Click here](https://yeye0922.github.io/EasyLoading) to preview the EasyLoading in html.  
-Import EasyLoading JavaScript and CSS files. EasyLoading contains optional animation, 
-you can import the separated CSS file according to your actual needs or just import a  "easy-loading-animation.css" file 
-which has import all separated CSS files already .
-
-    <link rel="stylesheet" href="css/easy-loading.css">
-    <link rel="stylesheet" href="css/easy-loading-animation.css">
-    <script src="js/easy-loading.min.js"></script>
-    
 Import 3rd plugin(jQuery).
 
     <script src="js/jquery-1.11.3.min.js"></script>
+    
+Import EasyLoading CSS and JavaScript files.
 
+    <link rel="stylesheet" href="css/easy-loading.min.css">
+    <script src="js/easy-loading.min.js"></script>
+    
 Showing the loading animation with some parameters.
 
     EasyLoading.show({
