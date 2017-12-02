@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyLoading</title>
+
+    <script src="../js/jquery-1.11.3.min.js"></script>
+
+    <link rel="stylesheet" href="../jquery-ui-1.12.1/jquery-ui.min.css">
+    <script src="../jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" href="../css/easy-loading.css">
+    <link rel="stylesheet" href="../css/easy-loading-animation.css">
+    <script src="../js/easy-loading.js"></script>
+
+    <style>
+        body{
+            background-color: deepskyblue;
+        }
+    </style>
+
+</head>
+<body>
+
+    <button class="jq_btn" id="timeout_btn">without timeout</button>
+    <button class="jq_btn" id="show_inside_loader_btn">show customized inside loader</button>
+    <button class="jq_btn" id="show_flow_loader_btn">show float loader</button>
+
+    <div id="loader_div" style="margin-top: 10px; width: 100%; height: 200px; background-color: white"></div>
+
+    <ul id="list">
+    </ul>
+
+    <div id="dialog" title="loader">
+        <p id="loader-window" style="height: 200px"></p>
+    </div>
+
+    <script>
+
+        var isTimeout = false;
+
+        var styleList = [
+            "BALL_PULSE",
+            "BALL_CLIP_ROTATE", "BALL_CLIP_ROTATE_PULSE", "SQUARE_SPIN", "BALL_CLIP_ROTATE_MULTIPLE",
+            "BALL_PULSE_RISE", "BALL_ROTATE", "CUBE_TRANSITION", "BALL_ZIP_ZAG", "BALL_ZIP_ZAG_DEFLECT",
+            "BALL_TRIANGLE_PATH", "BALL_SCALE", "LINE_SCALE", "LINE_SCALE_PARTY", "BALL_SCALE_MULTIPLE",
+            "BALL_PULSE_SYNC", "BALL_BEAT", "LINE_SCALE_PULSE_OUT", "LINE_SCALE_PULSE_OUT_RAPID",
+            "BALL_SCALE_RIPPLE", "BALL_SCALE_RIPPLE_MULTIPLE", "BALL_SPIN_FADE_LOADER", "LINK_SPIN_FADE_LOADER",
+            "TRIANGLE_SKEW_SPIN", "PACMAN", "SEMI_CIRCLE_SPIN"
+        ];
+
+        $(document).ready(function(){
+
+            $(".jq_btn").button();
+
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                close: function( event, ui ) {
+                    EasyLoading.destroy();
+                }
+            });
+
+            $("#timeout_btn").click(function(){
+                $(this).text(!isTimeout?"with 5 second timeout":"without timeout");
+                isTimeout = !isTimeout;
+            });
+
+            $("#show_inside_loader_btn").click(function () {
+                $( "#dialog" ).dialog( "close" );
+                EasyLoading.destroy();
+                EasyLoading.show({
+                    button: $("<button class='jq_float_btn' style='margin-top: 10px'>customized button</button>"),
+                    text: $("<div style='color: greenyellow; margin-top: 10px'>customized text</div>"),
+                    timeout: isTimeout?3000:null,
+                    callback: function(event, data){
+                        $("body").append($("<div>"+event+"</div>"));
+                    }
+                }, $("#loader_div"));
+                $(".jq_float_btn").button();
+            });
+
+            $("#show_flow_loader_btn").click(function () {
+                EasyLoading.destroy();
+                EasyLoading.show({
+                    text: 'container is loading',
+                    timeout: isTimeout?3000:null,
+                    callback: function(event, data){
+                        $("body").append($("<div>"+event+"</div>"));
+                        $( "#dialog" ).dialog( "close" );
+                    }
+                }, $("#loader-window"));
+                $( "#dialog" ).dialog( "open" );
+            });
+
+            var list = $("#list");
+            $(styleList).each(function(index, element){
+                var button = $("<button>"+element+"</button>")
+                    .click(function(){
+                        $( "#dialog" ).dialog( "close" );
+                        EasyLoading.destroy();
+                        EasyLoading.show({
+                            type: EasyLoading.TYPE[element],
+                            button: 'dismiss',
+                            text: 'loading',
+                            timeout: isTimeout?3000:null,
+                            dismiss: true,
+                            callback: function(event, data){
+                                $("body").append($("<div>"+event+"</div>"));
+                            }
+                        })
+                    });
+                var li = $("<li></li>");
+                list.append(li.append(button));
+            });
+        });
+    </script>
+
+</body>
+</html>
