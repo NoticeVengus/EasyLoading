@@ -6,7 +6,7 @@ module.exports = function(grunt){
 		
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - YeYe (https://github.com/yeye0922/EasyLoading)' +
 					'*/\n'
 			},
 			build: {
