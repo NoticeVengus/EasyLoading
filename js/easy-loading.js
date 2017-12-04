@@ -124,7 +124,7 @@ var EasyLoading = (function(){
                 component.button = options.button;
             }
             component.button.unbind().click(function(e) {
-                that.hide();
+                _hide(true);
                 if (options.callback != null)
                     options.callback('on_btn_click', e);
                 e.stopPropagation();
@@ -155,7 +155,7 @@ var EasyLoading = (function(){
         if(options.dismiss){
             component.main.unbind('click');
             component.main.click(function(e){
-                that.hide();
+                _hide(true);
                 if(options.callback!=null)
                     options.callback('on_loader_click', e);
             });
@@ -166,14 +166,25 @@ var EasyLoading = (function(){
 
     /**
      * hide loader
-     * @param isCallback    trigger callback or not
      */
-    that.hide = function(isCallback){
+    that.hide = function(){
         component.main.hide();
         if(typeof(that.timer)!='undefined' && that.timer!=null)
             clearTimeout(that.timer);
-        if(isCallback||true && options.callback!=null)
-            options.callback('on_loaded', options);
+    }
+
+    /**
+     * hide loader
+     * @param withoutCallback
+     */
+    var _hide = function(withoutCallback){
+        component.main.hide();
+        if(typeof(that.timer)!='undefined' && that.timer!=null)
+            clearTimeout(that.timer);
+        if(!withoutCallback||false) {
+            if (options.callback != null)
+                options.callback('on_loaded', options);
+        }
     }
 
     /**
@@ -181,7 +192,7 @@ var EasyLoading = (function(){
      */
     that.destroy = function(){
         if(that.isInit){
-            that.hide();
+            _hide(true);
             component.main.unbind();
             component.main.remove();
         }
@@ -206,7 +217,7 @@ var EasyLoading = (function(){
     var setTimer = function(){
         if(options.timeout>0 && options.timeout!=null){
             that.timer = setTimeout(function () {
-                that.hide();
+                _hide();
                 that.timer = null;
             }, options.timeout);
         }
